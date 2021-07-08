@@ -25,7 +25,20 @@ var deleteNote = function(id) {
     method:"DELETE"
   });
 };
-
+var renderActiveNote = function() {
+  $saveNoteBtn.hide();
+  if (activeNote.id) {
+    $noteTitle.attr("readonly", true);
+    $noteText.attr("readonly", true);
+    $noteTitle.val(activeNote.title);
+    $noteText.val(activeNote.text);
+  } else {
+    $noteTitle.attr("readonly", false);
+    $noteText.attr("readonly", false);
+    $noteTitle.val("");
+    $noteText.val("");
+  }
+};
 // activeNote is used to keep track of the note in the textarea
 let activeNote = {};
 
