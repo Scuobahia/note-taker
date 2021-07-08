@@ -1,25 +1,29 @@
-let noteTitle;
-let noteText;
-let saveNoteBtn;
-let newNoteBtn;
-let noteList;
+var $noteTitle = $(".note-title");
+var $noteText = $(".note-textarea");
+var $saveNoteBtn = $(".save-note");
+var $newNoteBtn = $(".new-note");
+var $noteList = $(".list-container .list-group");
 
-if (window.location.pathname === '/notes') {
-  noteTitle = document.querySelector('.note-title');
-  noteText = document.querySelector('.note-textarea');
-  saveNoteBtn = document.querySelector('.save-note');
-  newNoteBtn = document.querySelector('.new-note');
-  noteList = document.querySelectorAll('.list-container .list-group');
-}
+var activeNote = {};
 
-// Show an element
-const show = (elem) => {
-  elem.style.display = 'inline';
+var getNotes = function() {
+  return $.ajax({
+    url: "/api/notes",
+    method: "GET"
+  });
 };
-
-// Hide an element
-const hide = (elem) => {
-  elem.style.display = 'none';
+var saveNote = function(note) {
+  return $.ajax ({
+    url: "/api/notes",
+    data: note,
+    method: "POST"
+  });
+};
+var deleteNote = function(id) {
+  return $.ajax ({
+    url: "/api/notes/" + id,
+    method:"DELETE"
+  });
 };
 
 // activeNote is used to keep track of the note in the textarea
