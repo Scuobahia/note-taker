@@ -1,10 +1,13 @@
 var express = require("express");
 var path = require("path");
 var fs = require("fs");
-var jsondb = require("./db/db.json");
-const { v4: uuidv4 } = require('uuid');
-const { json } = require("express");
+var PORT = process.env.PORT || 3002;
+var app =express();
 
-app.listen(PORT, function() {
-    console.log("App listening on PORT " + PORT);
+
+
+
+app.listen(PORT,() => {
+    console.log('API listening on PORT ${PORT}!');
 });
+const { notes } = require('./db/notes');
