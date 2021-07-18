@@ -13,7 +13,7 @@ function createNewNote(body, noteArray) {
     const note = body;
     noteArray.push(note);
     fs.writeFileSync(
-        path.join(__dirname, './db/db.json'),
+        path.join(__dirname, './db/notes.json'),
     JSON.stringify({ notes: noteArray }, null, 2)
   );
   return note;
@@ -47,4 +47,4 @@ app.listen(PORT, () => {
   console.log(`API server now on port ${PORT}!`);
 });
 
-const { notes } = require('./db/db');
+const { notes } = require('./db/notes');
