@@ -1,36 +1,41 @@
-const fs = require ('fs');
+const fs = require('fs');
 const path = require('path');
 const express = require('express');
-const PORT = process.env.PORT  || 3001;
+const PORT = process.env.PORT || 3001;
 const app = express();
 
+// Middleware
+//Makes these files available 
 app.use(express.static('public'));
-app.use(express.urlencoded({extended: true}));
+// Parse incoming string or array data
+app.use(express.urlencoded({ extended: true }));
+// Parse incoming JSON data
 app.use(express.json());
 
 // Create a new note
 function createNewNote(body, noteArray) {
-    const note = body;
-    noteArray.push(note);
-    fs.writeFileSync(
-        path.join(__dirname, './db/notes.json'),
+  const note = body;
+  noteArray.push(note);
+  fs.writeFileSync(
+    path.join(__dirname, './db/notes.json'),
     JSON.stringify({ notes: noteArray }, null, 2)
   );
   return note;
 }
-app.get('api/notes', (req, res) =>{
+
+app.get('/api/notes', (req, res) => {
   res.json(notes);
 });
 
-// Display HTML
+//To get and display the html
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, './public/index.html'));
 });
-
+//To get and display the other html file
 app.get('/notes', (req, res) => {
   res.sendFile(path.join(__dirname, './public/notes.html'));
 });
-
+//In case there are no route matches, this should come last if more routes are added later!
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, './public/index.html'));
 });
